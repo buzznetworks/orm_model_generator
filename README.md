@@ -31,8 +31,9 @@ Future<void> main() async {
 
 ## Todo
 
+- Add validators
 - Add CLI Tool
-- Add Flutter Website
+- Add Flutter website and desktop applications
 
 ## Features and bugs
 
