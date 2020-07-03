@@ -1,4 +1,4 @@
-A ORM model generator (currentlly supports only Aqueduct and PostgreSQL.
+A ORM model generator (currently supports only Aqueduct and PostgreSQL).
 
 ## Usage
 
