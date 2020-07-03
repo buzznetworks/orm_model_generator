@@ -34,6 +34,7 @@ Future<void> main() async {
 - Add validators
 - Add CLI Tool
 - Add Flutter website and desktop applications
+- Publish to pub
 
 ## Features and bugs
 
