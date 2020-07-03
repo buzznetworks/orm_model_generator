@@ -1,5 +1,6 @@
 name: orm_model_generator
 description: A ORM model generator (currentlly supports only Aqueduct and PostgreSQL
+version: 0.0.1
 
 environment:
   sdk: '>=2.8.1 <3.0.0'
