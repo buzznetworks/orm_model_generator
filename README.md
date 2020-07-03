@@ -7,7 +7,7 @@ A simple usage example:
 ```dart
 import 'package:orm_model_generator/orm_model_generator.dart';
 
-void main() async {
+Future<void> main() async {
   final sqlConnection = SqlConnection.postgres(
     database: 'my_bd',
   );
