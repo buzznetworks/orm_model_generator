@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:code_builder/code_builder.dart';
-import 'package:orm_model_generator/orm_model_generator.dart';
 import 'package:recase/recase.dart';
 
 import '../constant/constant.dart';
 import '../extension/string_extension.dart';
 import '../model/column.dart';
+import '../model/foreign_key.dart';
 import '../model/schema.dart';
 import '../model/table.dart';
 
@@ -43,35 +43,36 @@ class AqueductBuilder {
           );
 
     final library = Library(
-      (l) => l.body.addAll(
-        <Spec>[
-          Class(
-            (c) => c
-              ..name = pascalCaseTableName
-              ..extend = TypeReference(
-                (t) => t
-                  ..symbol = 'ManagedObject'
-                  ..types.add(refer('_$pascalCaseTableName')),
-              )
-              ..implements.add(refer('_$pascalCaseTableName')),
-          ),
-          Class(
-            (c) => c
-              ..name = '_$pascalCaseTableName'
-              ..annotations.add(
-                InvokeExpression.newOf(
-                  refer('Table', kAqueductPackage),
-                  const <Expression>[],
-                  <String, Expression>{
-                    'name': literalString(table.name),
-                  },
-                  const <Reference>[],
-                ),
-              )
-              ..fields.addAll(fields),
-          ),
-        ],
-      ),
+      (l) => l
+        ..body.addAll(
+          <Spec>[
+            Class(
+              (c) => c
+                ..name = pascalCaseTableName
+                ..extend = TypeReference(
+                  (t) => t
+                    ..symbol = 'ManagedObject'
+                    ..types.add(refer('_$pascalCaseTableName')),
+                )
+                ..implements.add(refer('_$pascalCaseTableName')),
+            ),
+            Class(
+              (c) => c
+                ..name = '_$pascalCaseTableName'
+                ..annotations.add(
+                  InvokeExpression.newOf(
+                    refer('Table', kAqueductPackage),
+                    const <Expression>[],
+                    <String, Expression>{
+                      'name': literalString(table.name),
+                    },
+                    const <Reference>[],
+                  ),
+                )
+                ..fields.addAll(fields),
+            ),
+          ],
+        ),
     );
 
     var dartCode = kDartFormatter.format('${library.accept(kDartEmitter)}');
@@ -131,7 +132,7 @@ class AqueductBuilder {
             : foreignKey.fromTable.camelCase.plural
         ..type = foreignKey.fromTable == _currentTableName
             ? refer(
-                foreignKey.toTable,
+                foreignKey.toTable.pascalCase,
                 './${foreignKey.toTable.snakeCase}.dart',
               )
             : refer(
