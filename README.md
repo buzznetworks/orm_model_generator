@@ -9,7 +9,11 @@ import 'package:orm_model_generator/orm_model_generator.dart';
 
 Future<void> main() async {
   final sqlConnection = SqlConnection.postgres(
-    database: 'my_db',
+    database: 'my_db', // default = 'localhost'
+    host: 'host', // default = 'postgres'
+    port: 5432, // default = 5432
+    username: 'username', // default = 'postgres'
+    password: 'password', // default = ''
   );
 
   final postgresIntrospector = PosgtresIntrospector(
@@ -28,6 +32,14 @@ Future<void> main() async {
 }
 
 ```
+
+### Steps
+
+1. Clone the repository
+2. Run `pub get` in the cloned repository
+2. Update the SQLConnection parameters with your credentials
+3. Run `dart example/aqueduct_example.dart`
+4. Get your models in the output folder.
 
 ## Todo
 
