@@ -22,6 +22,7 @@ class PosgtresIntrospector {
           sqlConnection.database,
           username: sqlConnection.username,
           password: sqlConnection.password,
+          useSSL: sqlConnection.useSsl,
         );
 
   Future<void> open() => connection.open();

@@ -14,6 +14,7 @@ Future<void> main() async {
     port: 5432, // default = 5432
     username: 'username', // default = 'postgres'
     password: 'password', // default = ''
+    useSsl: true, // default = true
   );
 
   final postgresIntrospector = PosgtresIntrospector(
@@ -30,7 +31,6 @@ Future<void> main() async {
 
   await postgresIntrospector.close();
 }
-
 ```
 
 ### Steps

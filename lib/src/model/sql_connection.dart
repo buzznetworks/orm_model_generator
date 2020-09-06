@@ -11,31 +11,37 @@ class SqlConnection {
 
   final String password;
 
+  final bool useSsl;
+
   const SqlConnection._({
     @required this.host,
     @required this.port,
     @required this.database,
     @required this.username,
     @required this.password,
+    @required this.useSsl,
   })  : assert(host != null),
         assert(port != null),
         assert(database != null),
         assert(username != null),
-        assert(password != null);
+        assert(password != null),
+        assert(useSsl != null);
 
   factory SqlConnection.postgres({
-    String host,
-    int port,
-    String database,
-    String username,
-    String password,
+    String host = 'localhost',
+    int port = 5432,
+    String database = 'postgres',
+    String username = 'postgres',
+    String password = '',
+    bool useSsl = true,
   }) =>
       SqlConnection._(
-        host: host ?? 'localhost',
-        port: port ?? 5432,
-        database: database ?? 'postgres',
-        username: username ?? 'postgres',
-        password: password ?? '',
+        host: host,
+        port: port,
+        database: database,
+        username: username,
+        password: password,
+        useSsl: useSsl,
       );
 
   @override
@@ -46,6 +52,7 @@ class SqlConnection {
     database: $database
     user: $username
     password: $password
+    useSSL: $useSsl
 }''';
   }
 }
